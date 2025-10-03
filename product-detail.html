@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chi tiết sản phẩm</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#f9f9f9; }
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .product-detail {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .product-detail img {
+      width: 350px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .product-info {
+      flex: 1;
+    }
+    .product-info h2 { margin: 0 0 10px; }
+    .price { font-size:18px; font-weight:bold; color:#16a34a; margin: 10px 0; }
+    .desc { margin: 10px 0; }
+    .btn {
+      background:#16a34a; color:#fff; border:none; padding:10px 16px;
+      border-radius:6px; cursor:pointer; font-size:15px;
+    }
+    .btn:hover { background:#15803d; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Nội dung -->
+  <main>
+    <div id="detailContainer"></div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Script chung -->
+  <script src="script.js"></script>
+
+  <!-- Load header/footer -->
+  <script>
+    async function loadComponent(id, file, callback) {
+  try {
+    const res = await fetch(file);
+    if (!res.ok) throw new Error("Fetch failed " + file);
+    const html = await res.text();
+    const container = document.getElementById(id);
+    if (container) {
+      container.innerHTML = html;
+      if (typeof callback === "function") callback(); // chạy callback sau khi header/footer load xong
+    }
+  } catch (err) {
+    console.error("loadComponent error:", err);
+  }
+}
+
+    loadComponent("header", "header.html", () => {
+  updateCartUI(); // cập nhật số giỏ hàng
+
+  // === Gắn lại sự kiện tìm kiếm sau khi header load xong ===
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        const keyword = searchInput.value.trim();
+        if (keyword) {
+          // Chuyển sang trang search.html với query
+          window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
+        }
+      }
+    });
+  }
+});
+    loadComponent("footer", "footer.html");
+  </script>
+
+  <!-- Script chi tiết sản phẩm -->
+  <script>
+    const products = [
+      {
+        name: "Hạt Dinh Dưỡng Sacha Inchi",
+        img: "img/product1.png",
+        desc: "Hũ hạt Sacha Inchi nguyên chất, giàu Omega-3, 6, 9 tốt cho sức khỏe.",
+        usage: "Dùng trực tiếp hoặc trộn salad, nấu cháo, làm bánh.",
+        weights: ["250Gr", "500Gr"],
+        prices: ["338.000₫", "422.500₫"]
+      },
+      {
+        name: "Dầu Sacha Inchi Nguyên Chất",
+        img: "img/product2.png",
+        desc: "Dầu ép lạnh nguyên chất từ hạt Sacha Inchi, bổ sung Omega-3 cho cơ thể.",
+        usage: "Uống trực tiếp, trộn salad, dùng cho da và tóc.",
+        weights: ["100ml", "250ml"],
+        prices: ["199.000₫", "399.000₫"]
+      },
+      {
+        name: "Snack Sacha Inchi Rang Mộc",
+        img: "img/product3.png",
+        desc: "Snack hạt Sacha Inchi rang mộc, giòn thơm tự nhiên, không dầu mỡ.",
+        usage: "Ăn vặt, dùng kèm trà, cà phê.",
+        weights: ["100Gr", "200Gr"],
+        prices: ["85.000₫", "150.000₫"]
+      },
+      {
+        name: "Bột Sacha Inchi",
+        img: "img/product4.png",
+        desc: "Bột dinh dưỡng từ hạt Sacha Inchi, giàu protein thực vật.",
+        usage: "Pha nước uống, trộn sinh tố, nấu cháo, làm bánh.",
+        weights: ["250Gr", "500Gr"],
+        prices: ["250.000₫", "450.000₫"]
+      }
+    ];
+
+    // Lấy id từ URL
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id")) || 0;
+
+    const product = products[id];
+    const container = document.getElementById("detailContainer");
+
+    if (product) {
+      let weightOptions = "";
+      product.weights.forEach((w, i) => {
+        weightOptions += `<option value="${i}">${w} - ${product.prices[i]}</option>`;
+      });
+
+      container.innerHTML = `
+        <div class="product-detail">
+          <img src="${product.img}" alt="${product.name}">
+          <div class="product-info">
+            <h2>${product.name}</h2>
+            <div class="price">${product.prices[0]}</div>
+            <p class="desc"><strong>Mô tả:</strong> ${product.desc}</p>
+            <p class="desc"><strong>Công dụng:</strong> ${product.usage}</p>
+            <div>
+              <label>Cân nặng:</label>
+              <select id="weightSelect">${weightOptions}</select>
+            </div>
+            <div style="margin:10px 0;">
+              <label>Số lượng:</label>
+              <input type="number" id="qtyDetail" value="1" min="1" style="width:70px;">
+            </div>
+            <button class="btn" onclick="addDetailToCart(${id})">Thêm vào giỏ hàng</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function addDetailToCart(i) {
+      const qty = parseInt(document.getElementById("qtyDetail").value);
+      const select = document.getElementById("weightSelect");
+      const weight = products[i].weights[select.value];
+      const price = products[i].prices[select.value];
+      addToCart(products[i], qty, weight, price);
+    }
+  </script>
+</body>
+</html>

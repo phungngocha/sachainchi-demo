@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sản phẩm - Shop Hạt Sacha Inchi</title>
+
+  <!-- CSS chung -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    main {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .product-grid {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;   /* cho phép cuộn ngang */
+      padding-bottom: 10px;
+      scroll-behavior: smooth; /* cuộn mượt */
+    }
+    .product-card {
+      flex: 0 0 250px; /* cố định chiều rộng card */
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      background: #fff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .product-card h3 { font-size: 16px; margin: 8px 0; }
+    .price { color: #16a34a; font-weight: bold; margin: 5px 0 10px; font-size: 15px; }
+    .btn {
+      background: #16a34a;
+      color: #fff;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn:hover { background: #15803d; }
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+    .controls input, .controls select {
+      padding: 4px 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Import động -->
+  <div id="header"></div>
+
+  <!-- Danh sách sản phẩm -->
+  <main>
+    <h2>Danh sách sản phẩm</h2>
+    <div class="product-grid" id="productGrid"></div>
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- Cart Drawer -->
+  <aside id="cartDrawer" class="cart-drawer hidden" aria-hidden="true">
+    <div class="cart-header">
+      <h4>Giỏ hàng</h4>
+      <button id="closeCart" class="close-btn">&times;</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="total">
+        <span>Tổng:</span>
+        <strong id="cartTotal">0 ₫</strong>
+      </div>
+      <button id="checkoutBtn" class="btn">Thanh toán (giả lập)</button>
+    </div>
+  </aside>
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="products.js"></script>
+  <!-- JS chung -->
+  <script src="script.js"></script>
+
+  <!-- JS: load các component -->
+  <script>
+    async function loadComponent(id, file, callback) {
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error('Fetch failed ' + file + ' : ' + res.status);
+        const html = await res.text();
+        const container = document.getElementById(id);
+        if (!container) return;
+        container.innerHTML = html;
+        if (typeof callback === 'function') callback();
+      } catch (err) {
+        console.error('loadComponent error:', err);
+      }
+    }
+    loadComponent("header", "header.html", () => {
+  updateCartUI(); // cập nhật số giỏ hàng
+
+  // === Gắn lại sự kiện tìm kiếm sau khi header load xong ===
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        const keyword = searchInput.value.trim();
+        if (keyword) {
+          // Chuyển sang trang search.html với query
+          window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
+        }
+      }
+    });
+  }
+});
+    loadComponent("footer", "footer.html");
+  </script>
+
+  <!-- JS cho trang sản phẩm -->
+  <script>
+
+
+    const productGrid = document.getElementById("productGrid");
+
+    products.forEach((p, index) => {
+      const div = document.createElement("div");
+      div.className = "product-card";
+
+      // Options cân nặng
+      let weightOptions = "";
+      p.weights.forEach((w,i) => {
+        weightOptions += `<option value="${i}">${w}</option>`;
+      });
+
+      div.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <h3><a href="product-detail.html?id=${index}">${p.name}</a></h3>
+        <div class="price" id="price-${index}">${p.prices[0]}</div>
+        <div class="controls">
+          <label>Số lượng:</label>
+          <input type="number" id="qty-${index}" value="1" min="1" style="width:60px">
+        </div>
+        <div class="controls">
+          <label>Cân nặng:</label>
+          <select id="weight-${index}">
+            ${weightOptions}
+          </select>
+        </div>
+        <button class="btn" onclick="handleAdd(${index})">Thêm vào giỏ</button>
+      `;
+
+      productGrid.appendChild(div);
+
+      // Lắng nghe sự kiện thay đổi cân nặng để cập nhật giá
+      const weightSelect = div.querySelector(`#weight-${index}`);
+      weightSelect.addEventListener("change", function() {
+        const selectedIndex = this.value;
+        document.getElementById(`price-${index}`).innerText = p.prices[selectedIndex];
+      });
+    });
+
+    function handleAdd(i) {
+      const qty = parseInt(document.getElementById(`qty-${i}`).value);
+      const select = document.getElementById(`weight-${i}`);
+      const weight = products[i].weights[select.value];
+      const price = products[i].prices[select.value];
+      addToCart(products[i], qty, weight, price);
+    }
+  </script>
+</body>
+</html>

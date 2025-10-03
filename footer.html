@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footer Demo</title>
+  <style>
+    /* === FOOTER CSS === */
+    /* === RESET & BODY === */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+}
+
+/* === FOOTER === */
+.site-footer {
+  background-color: #2e7d32; /* xanh lá đậm */
+  color: #fff;
+  padding: 40px 20px 20px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.site-footer .footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* để responsive */
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-col {
+  flex: 1 1 250px; /* mỗi cột tối thiểu 250px */
+}
+
+.footer-col h4 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #c8e6c9; /* xanh lá nhạt */
+  border-bottom: 2px solid #a5d6a7;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.footer-col p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #e8f5e9;
+}
+
+.footer-col a {
+  color: #c8e6c9;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+  font-size: 14px;
+}
+
+.footer-col a:hover {
+  color: #fff;
+  transform: translateX(3px);
+}
+
+/* === SOCIAL === */
+.social-links {
+  margin-top: 10px;
+}
+
+.social-links a {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.social-links img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.social-links img:hover {
+  transform: scale(1.1);
+}
+
+/* === Certification === */
+.certification {
+  margin-top: 15px;
+}
+
+.certification img {
+  width: 140px;
+  height: auto;
+  background: #fff;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+/* === Footer Bottom === */
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #388e3c;
+  margin-top: 25px;
+  padding-top: 15px;
+  font-size: 14px;
+  color: #c8e6c9;
+}
+
+/* === Responsive cho mobile === */
+@media (max-width: 768px) {
+  .site-footer .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-col {
+    margin-bottom: 20px;
+  }
+  .social-links img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Nội dung giả để test -->
+  <!-- <main style="flex: 1; padding: 20px; text-align:center">
+    <h2>Trang sản phẩm</h2>
+    <p>Đây là nội dung ở giữa trang...</p>
+  </main> -->
+
+  <!-- === FOOTER HTML === -->
+  <footer class="site-footer">
+    <div class="footer-container">
+
+      <!-- Cột 1: thông tin công ty -->
+      <div class="footer-col">
+        <h4>Shop Hạt Sacha Inchi</h4>
+        <p>Địa chỉ: Trường đại học FPT</p>
+        <p>Điện thoại: 0909 123 456</p>
+        <p>Email: info@sachainchi.vn</p>
+      </div>
+
+      <!-- Cột 2: liên kết -->
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <p><a href="#">Chính sách</a></p>
+        <p><a href="#">Liên hệ</a></p>
+        <p><a href="#">FAQ</a></p>
+      </div>
+
+      <!-- Cột 3: mạng xã hội -->
+      <div class="footer-col">
+        <h4>Kết nối</h4>
+        <div class="social-links">
+          <a href="https://facebook.com" target="_blank"><img src="img/Facebook_Logo_(2019).png.webp" alt="Facebook"></a>
+          <a href="https://tiktok.com" target="_blank"><img src="img/tiktok.jpg" alt="TikTok"></a>
+          <a href="https://instagram" target="_blank"><img src="img/intagam.png" alt="Instagram"></a>
+        </div>
+        <div class="certification">
+          <img src="img/bo-cong-thuong.png" alt="Đã thông báo Bộ Công Thương">
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Shop Hạt Sacha Inchi. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- === FOOTER JS === -->
+  <script>
+    const links = document.querySelectorAll(".footer-col a");
+    links.forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("Bạn vừa nhấn vào: " + link.textContent);
+      });
+    });
+  </script>
+
+</body>
+</html>

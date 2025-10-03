@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shop Hạt Sacha Inchi</title>
+
+  <!-- CSS chung -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <!-- Import động -->
+  <div id="header"></div>
+  <div id="home"></div>
+  <div id="footer"></div>
+
+  <!-- Cart Drawer -->
+  <aside id="cartDrawer" class="cart-drawer hidden" aria-hidden="true">
+    <div class="cart-header">
+      <h4>Giỏ hàng</h4>
+      <button id="closeCart" class="close-btn">&times;</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="total">
+        <span>Tổng:</span>
+        <strong id="cartTotal">0 ₫</strong>
+      </div>
+      <button id="checkoutBtn" class="btn">Thanh toán (giả lập)</button>
+    </div>
+  </aside>
+  <div id="toast" class="toast hidden"></div>
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+  <!-- JS: load các component -->
+  <script>
+  // loadComponent: chèn HTML và gọi callback khi xong
+  async function loadComponent(id, file, callback) {
+    try {
+      const res = await fetch(file);
+      if (!res.ok) throw new Error('Fetch failed ' + file + ' : ' + res.status);
+      const html = await res.text();
+
+      // chèn nội dung HTML
+      const container = document.getElementById(id);
+      if (!container) {
+        console.error('Không tìm thấy container', id);
+        return;
+      }
+      container.innerHTML = html;
+
+      // nếu có callback (ví dụ load thêm JS cụ thể), gọi callback
+      if (typeof callback === 'function') callback();
+    } catch (err) {
+      console.error('loadComponent error:', err);
+    }
+  }
+
+  // Load header (không cần js riêng)
+   loadComponent("header", "header.html", () => {
+  updateCartUI(); // cập nhật số giỏ hàng
+
+  // === Gắn lại sự kiện tìm kiếm sau khi header load xong ===
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        const keyword = searchInput.value.trim();
+        if (keyword) {
+          // Chuyển sang trang search.html với query
+          window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
+        }
+      }
+    });
+  }
+});
+
+  // Load home -> sau khi chèn home.html, mới append home.js
+  loadComponent("home", "home.html", () => {
+    const s = document.createElement("script");
+    s.src = "home.js";
+    s.defer = true; // not required but ok
+    document.body.appendChild(s);
+  });
+
+  // Load footer
+  loadComponent("footer", "footer.html");
+</script>
+
+  <!-- JS chung -->
+  
+  <!-- <script src="home.js"></script> -->
+</body>
+</html>

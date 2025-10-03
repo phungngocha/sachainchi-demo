@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .site-header { background: #432d23; color: #fff; padding: 10px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: auto; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand .logo { height: 50px; border-radius: 6px; }
+    .brand h1 { margin: 0; font-size: 20px; color: #fff; }
+    .brand small { font-size: 12px; color: #e4e7eb; }
+    .nav { display: flex; align-items: center; gap: 20px; }
+    .nav-links { display: flex; gap: 15px; }
+    .nav-links a { color: #fff; text-decoration: none; font-size: 14px; padding: 6px 10px; border-radius: 4px; transition: background 0.2s ease; }
+    .nav-links a:hover { background: #0ea5e9; }
+    .search { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; outline: none; font-size: 14px; }
+    .search:focus { border-color: #38bdf8; }
+    .cart-link { background-color: #479637; border-radius: 9px; padding: 4px 10px; color: #fff; font-weight: 500; text-decoration: none; }
+    .cart-link:hover { background-color: #0ea5e9; }
+  </style>
+</head>
+<body>
+
+  <!-- === HEADER HTML === -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="img/logo.jpg" alt="logo" class="logo">
+        <div>
+          <h1>Hạt Sacha Inchi</h1>
+          <small>Thiên nhiên cho sức khỏe</small>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="nav-links">
+          <a href="index.html">Trang chủ</a>
+          <a href="products.html">Sản phẩm</a>
+        </div>
+        <input id="searchInput" class="search" type="search" placeholder="Tìm sản phẩm...">
+        <a href="cart.html" class="cart-link">🛒 <span id="cartCount">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <script>
+    // === Xử lý tìm kiếm: khi bấm Enter thì chuyển sang trang search.html ===
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+      searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          const keyword = searchInput.value.trim();
+          if (keyword) {
+            window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
+          }
+        }
+      });
+    }
+  </script>
+<script src="products.js"></script>
+</body>
+</html>
