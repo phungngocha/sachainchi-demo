@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9, #06b6d4);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .auth-container {
+      background:#fff;
+      padding:40px 30px;
+      border-radius:20px;
+      width: 360px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.25);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-container::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(14,165,233,0.2);
+      border-radius: 50%;
+      top: -60px;
+      right: -60px;
+      z-index: 0;
+    }
+
+    h2 {
+      font-size:28px;
+      color:#0ea5e9;
+      margin-bottom: 25px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .illustration {
+      width: 100px;
+      margin: 0 auto 20px;
+      display: block;
+      z-index: 1;
+      position: relative;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom:20px;
+      z-index: 1;
+    }
+
+    .input-group input {
+      width:100%;
+      padding:12px 40px 12px 12px;
+      border-radius:8px;
+      border:1px solid #ccc;
+      font-size:14px;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 8px rgba(14,165,233,0.5);
+      outline:none;
+    }
+
+    .input-group i {
+      position: absolute;
+      right:12px;
+      top:50%;
+      transform: translateY(-50%);
+      color:#0ea5e9;
+      font-size:18px;
+    }
+
+    button {
+      width:100%;
+      padding:14px;
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+      color:#fff;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:16px;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #0ea5e9, #0284c7);
+      transform: translateY(-2px);
+      box-shadow:0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    p {
+      margin-top:18px;
+      font-size:14px;
+      color:#555;
+      z-index: 1;
+      position: relative;
+    }
+
+    p a {
+      color:#0ea5e9;
+      font-weight:500;
+      text-decoration:none;
+    }
+
+    p a:hover { text-decoration: underline; }
+
+  </style>
+  <!-- Font Awesome cho icon -->
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="auth-container">
+    <img src="img/ann1.png" alt="Đăng ký" class="illustration">
+    <h2>Đăng ký</h2>
+
+    <div class="input-group">
+      <input type="text" id="name" placeholder="Họ và tên">
+      <i class="fas fa-user"></i>
+    </div>
+
+    <div class="input-group">
+      <input type="email" id="email" placeholder="Email">
+      <i class="fas fa-envelope"></i>
+    </div>
+
+    <div class="input-group">
+      <input type="password" id="password" placeholder="Mật khẩu">
+      <i class="fas fa-lock"></i>
+    </div>
+
+    <div class="input-group">
+      <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu">
+      <i class="fas fa-lock"></i>
+    </div>
+
+    <button id="registerBtn">Đăng ký</button>
+    <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+  </div>
+
+  <script>
+    const registerBtn = document.getElementById("registerBtn");
+    registerBtn.addEventListener("click", () => {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+      if(!name || !email || !password || !confirmPassword){
+        alert("Vui lòng nhập đủ thông tin!");
+        return;
+      }
+
+      if(password !== confirmPassword){
+        alert("Mật khẩu không khớp!");
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+      if(users.some(u => u.email === email)){
+        alert("Email này đã được đăng ký!");
+        return;
+      }
+
+      const newUser = { name, email, password };
+      users.push(newUser);
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Đăng ký thành công! Vui lòng đăng nhập.");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

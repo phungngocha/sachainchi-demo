@@ -123,20 +123,25 @@
     loadComponent("header", "header.html", () => {
   updateCartUI(); // cập nhật số giỏ hàng
 
-  // === Gắn lại sự kiện tìm kiếm sau khi header load xong ===
+  // Load header.js sau khi header đã load xong
+  const script = document.createElement("script");
+  script.src = "header.js";
+  document.body.appendChild(script);
+
+  // === Gắn lại sự kiện tìm kiếm ===
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
     searchInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         const keyword = searchInput.value.trim();
         if (keyword) {
-          // Chuyển sang trang search.html với query
           window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
         }
       }
     });
   }
 });
+
     loadComponent("footer", "footer.html");
   </script>
 

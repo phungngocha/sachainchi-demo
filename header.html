@@ -20,6 +20,27 @@
     .search:focus { border-color: #38bdf8; }
     .cart-link { background-color: #479637; border-radius: 9px; padding: 4px 10px; color: #fff; font-weight: 500; text-decoration: none; }
     .cart-link:hover { background-color: #0ea5e9; }
+    .auth-link {
+  background-color: #0ea5e9;
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.auth-link:hover {
+  background-color: #0284c7;
+}
+#userAvatar img {
+  border: 2px solid #fff;
+}
+#userAvatar img:hover {
+  transform: scale(1.1);
+}
+
+
   </style>
 </head>
 <body>
@@ -41,23 +62,27 @@
         </div>
         <input id="searchInput" class="search" type="search" placeholder="Tìm sản phẩm...">
         <a href="cart.html" class="cart-link">🛒 <span id="cartCount">0</span></a>
+         <a href="login.html" class="auth-link" id="loginBtn">Đăng nhập</a>
+<a href="register.html" class="auth-link" id="registerBtn">Đăng ký</a>
+<div id="userAvatar" style="display:none; align-items:center; gap:8px; cursor:pointer;">
+  <img id="avatarImg" src="img/avata.png" alt="avatar" style="
+       width:40px; 
+       height:40px; 
+       border-radius:50%; 
+       border: 2px solid #fff; 
+       object-fit:cover; 
+       transition: transform 0.2s;">
+  <span id="username" style="color:#fff; font-weight:500;"></span>
+</div>
+
       </nav>
     </div>
   </header>
 
   <script>
-    // === Xử lý tìm kiếm: khi bấm Enter thì chuyển sang trang search.html ===
-    const searchInput = document.getElementById("searchInput");
-    if (searchInput) {
-      searchInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          const keyword = searchInput.value.trim();
-          if (keyword) {
-            window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
-          }
-        }
-      });
-    }
+    
+
+
   </script>
 <script src="products.js"></script>
 </body>
