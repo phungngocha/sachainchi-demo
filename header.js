@@ -1,6 +1,5 @@
-// header.js
 (function() {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
   const loginBtn = document.getElementById("loginBtn");
   const registerBtn = document.getElementById("registerBtn");
   const userAvatar = document.getElementById("userAvatar");
@@ -8,6 +7,7 @@
   const username = document.getElementById("username");
 
   if (currentUser) {
+    // Ẩn login/register, hiện avatar + tên
     if (loginBtn) loginBtn.style.display = "none";
     if (registerBtn) registerBtn.style.display = "none";
 
@@ -16,27 +16,25 @@
       avatarImg.src = currentUser.avatar || "img/avata.png";
       username.textContent = currentUser.name;
 
+      // Click vào avatar hoặc tên để logout
       userAvatar.addEventListener("click", () => {
-        localStorage.removeItem("currentUser");
-        window.location.reload();
+        sessionStorage.removeItem("currentUser"); // xóa session
+        window.location.reload(); // reload trang để cập nhật UI
       });
     }
   }
-// === Xử lý tìm kiếm: khi bấm Enter thì chuyển sang trang search.html ===
-    const searchInput = document.getElementById("searchInput");
-    if (searchInput) {
-      searchInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          const keyword = searchInput.value.trim();
-          if (keyword) {
-            window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
-          }
+
+  // Xử lý tìm kiếm: Enter => search.html
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const keyword = searchInput.value.trim();
+        if (keyword) {
+          window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
         }
-      });
-    }
-
-    // Lấy user đang đăng nhập từ localStorage
+      }
+    });
+  }
 })();
-
-
-

@@ -6,19 +6,19 @@
   <title>Đăng nhập</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    * { box-sizing: border-box; margin:0; padding:0; }
+* { box-sizing: border-box; margin:0; padding:0; }
 
-    body {
+body {
   font-family: 'Arial', sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  /* Background ảnh phủ kín, giữ tỷ lệ */
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+  /* Background ảnh + overlay xanh lá nhạt */
+  background: linear-gradient(rgba(34,197,94,0.3), rgba(22,163,74,0.3)), 
               url('img/login-bg.jpg') no-repeat center center fixed;
-  background-size: cover; /* phủ toàn bộ màn hình */
+  background-size: cover;
   overflow: hidden;
 }
 
@@ -35,82 +35,82 @@
   position: relative;
 }
 
-/* Tùy chọn thêm animation */
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(30px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-    h2 {
-      font-size: 28px;
-      color:#0ea5e9;
-      margin-bottom: 25px;
-      font-weight: 700;
-      letter-spacing:1px;
-    }
+h2 {
+  font-size: 28px;
+  color: #16a34a; /* xanh lá */
+  margin-bottom: 25px;
+  font-weight: 700;
+  letter-spacing:1px;
+}
 
-    .input-group {
-      position: relative;
-      margin-bottom: 20px;
-    }
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
 
-    .input-group input {
-      width: 100%;
-      padding: 12px 40px 12px 12px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-      transition: 0.3s;
-    }
+.input-group input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s;
+}
 
-    .input-group input:focus {
-      border-color: #0ea5e9;
-      box-shadow: 0 0 10px rgba(14,165,233,0.5);
-      outline: none;
-    }
+.input-group input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 10px rgba(22,163,74,0.5);
+  outline: none;
+}
 
-    .input-group i {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #0ea5e9;
-      font-size: 18px;
-    }
+.input-group i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #16a34a;
+  font-size: 18px;
+}
 
-    button {
-      width:100%;
-      padding:14px;
-      font-size:16px;
-      font-weight:600;
-      border:none;
-      border-radius:10px;
-      cursor:pointer;
-      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
-      color: #fff;
-      transition: 0.3s;
-    }
+button {
+  width:100%;
+  padding:14px;
+  font-size:16px;
+  font-weight:600;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background: linear-gradient(90deg, #4ade80, #16a34a);
+  color: #fff;
+  transition: 0.3s;
+}
 
-    button:hover {
-      background: linear-gradient(90deg, #0ea5e9, #0284c7);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    }
+button:hover {
+  background: linear-gradient(90deg, #16a34a, #15803d);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
 
-    p {
-      margin-top:18px;
-      font-size:14px;
-      color:#555;
-    }
+p {
+  margin-top:18px;
+  font-size:14px;
+  color:#555;
+}
 
-    p a {
-      color:#0ea5e9;
-      font-weight:500;
-      text-decoration:none;
-    }
+p a {
+  color:#16a34a;
+  font-weight:500;
+  text-decoration:none;
+}
 
-    p a:hover { text-decoration: underline; }
-  </style>
+p a:hover { text-decoration: underline; }
+</style>
+
   <!-- Font Awesome cho icon -->
   <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
@@ -149,7 +149,7 @@
       const user = users.find(u => u.email === email && u.password === password);
 
       if(user){
-        localStorage.setItem("currentUser", JSON.stringify(user));
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
         alert("Đăng nhập thành công!");
         window.location.href = "index.html";
       } else {

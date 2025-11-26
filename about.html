@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Về Chúng Tôi - NutriInChi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="home.css">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #f9fafb;
+    }
+
+    .about-header {
+      background: linear-gradient(to right, #0f3d3e, #145858);
+      color: #fff;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .about-header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .about-section-content {
+      padding: 60px 0;
+    }
+
+    .about-card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .about-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .about-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .about-card-body {
+      padding: 25px;
+    }
+
+    .about-card-body h3 {
+      color: #0f3d3e;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .about-card-body p {
+      color: #444;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .btn-read {
+      color: #0f3d3e;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn-read:hover {
+      color: #0ea5e9;
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #0f3d3e;
+      color: #fff;
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (có thể load qua JS nếu bạn đang dùng chung header.js) -->
+  <div id="header"></div>
+
+  <!-- 🌿 HEADER PHẦN GIỚI THIỆU -->
+  <section class="about-header">
+    <h1>Về Chúng Tôi</h1>
+    <p>NutriInChi – “Hạt nhỏ giải quyết nỗi lo lớn”</p>
+  </section>
+
+  <!-- 🌿 DANH SÁCH BÀI GIỚI THIỆU -->
+  <section class="about-section-content">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- BÀI 1: Giới thiệu thương hiệu -->
+        <div class="col-md-4">
+          <div class="about-card">
+            <img src="img/logo1.jpg" alt="Thương hiệu NutriInChi">
+            <div class="about-card-body">
+              <h3>NutriInChi – “Hạt nhỏ giải quyết nỗi lo lớn”</h3>
+              <p>
+                Từ rừng Amazon đến đất đỏ Đắk Lắk, NutriInChi mang hạt Sacha Inchi giàu Omega-3,6,9 tự nhiên – giúp giảm cholesterol, tốt cho tim mạch và nuôi dưỡng vẻ đẹp từ bên trong.
+              </p>
+             <a href="brand.html" class="btn-read">Xem chi tiết →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- BÀI 2: Hạt Sacha Inchi -->
+        <div class="col-md-4">
+          <div class="about-card">
+            <img src="img/anh3.jpg" alt="Hạt Sacha Inchi">
+            <div class="about-card-body">
+              <h3>Hạt Sacha Inchi – Siêu thực phẩm cho cuộc sống lành mạnh</h3>
+              <p>
+                Hạt Sacha Inchi chứa nguồn dưỡng chất quý giá – giàu Omega-3, protein và vitamin tự nhiên, giúp nuôi dưỡng cơ thể khỏe mạnh và tinh thần an yên mỗi ngày.
+              </p>
+              <a href="sacha.html" class="btn-read">Xem chi tiết →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- BÀI 3: HTX Kim Thông -->
+        <div class="col-md-4">
+          <div class="about-card">
+            <img src="https://share.google/images/placeholder" alt="HTX Kim Thông">
+            <div class="about-card-body">
+              <h3>HTX Kim Thông – Nền tảng vững chắc cho chất lượng NutriInChi</h3>
+              <p>
+                Từ vùng đất đỏ Đắk Lắk, HTX Kim Thông nuôi dưỡng từng hạt Sacha Inchi bằng tâm huyết và quy trình chuẩn hóa VietGAP, tạo nên nguồn nguyên liệu tinh khiết và niềm tin bền vững.
+              </p>
+              <a href="kimthong.html" class="btn-read">Xem chi tiết →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 NutriInChi - Hạt lành từ thiên nhiên. All rights reserved.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="header.js"></script>
+</body>
+</html>

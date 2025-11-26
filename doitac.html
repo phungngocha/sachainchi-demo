@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTX Kim Thông & NutriInChi – Hành trình kiến tạo giá trị bền vững từ hạt Sacha Inchi</title>
+  <meta name="description" content="Từ vùng đất đỏ bazan Đắk Lắk, HTX Kim Thông cùng NutriInChi mang đến nguồn nguyên liệu Sacha Inchi thuần khiết, chuẩn VietGAP, góp phần phát triển nông nghiệp sạch và lan tỏa giá trị nông sản Việt ra thế giới.">
+
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8fcf8;
+      color: #333;
+      line-height: 1.8;
+       margin-top: 60px; /* chiều cao header, nếu có fixed */
+    }
+
+.hero-banner {
+    width: 100%;
+    height: 100vh;                     /* phù hợp desktop + mobile */
+    min-height: 300px;                /* đảm bảo không quá nhỏ ở mobile */
+
+    background: 
+        linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),  /* overlay mờ sang trọng */
+        url('img/HTXkimthong2.jpg') center center / cover no-repeat;
+
+   
+    position: relative;
+}
+
+
+    .page-title {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .page-title h1 {
+      font-size: 2rem;
+      color: #2e7d32;
+      font-weight: 700;
+    }
+
+    .article-section {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .article-section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+    }
+
+    .article-content {
+      padding: 30px;
+    }
+
+    .article-content h2, .article-content h3 {
+      color: #2e7d32;
+      font-weight: 600;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+
+    .article-content p {
+      text-align: justify;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: #2e7d32;
+      color: white;
+      padding: 25px 0;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .article-content {
+        padding: 20px;
+      }
+    }
+
+    .intro {
+      background: linear-gradient(135deg, #e6f4ea, #f5fff7);
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      color: #2e4f32;
+      text-align: center;
+      padding: 60px 20px;
+      margin: 50px auto;
+      max-width: 900px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .intro:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .intro h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1c3d24;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .intro p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #355d3b;
+      margin: 0 auto;
+      max-width: 750px;
+    }
+
+    @media (max-width: 768px) {
+      .intro h1 {
+        font-size: 1.6rem;
+      }
+      .intro p {
+        font-size: 1rem;
+      }
+    }
+
+    .highlight {
+      background-color: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 30px;
+      border-radius: 25px;
+    }
+    /* Căn chỉnh ảnh trong main */
+.article-content .image-wrapper {
+    text-align: center;  /* Căn giữa ảnh và caption */
+    margin: 30px 0;
+    display: block;
+    width: 100%;
+}
+
+.article-content .image-wrapper img {
+    max-width: 80%;          /* Ảnh nhỏ gọn, responsive */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.article-content .image-wrapper img:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.article-content .image-wrapper p {
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-size: 0.95rem;
+  
+    text-align: center;
+}
+
+/* Nếu muốn hiển thị nhiều ảnh cùng hàng */
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.image-grid .image-wrapper {
+    flex: 1 1 500px; /* Ảnh tối thiểu 300px, tự co dãn */
+    max-width: 600px;
+    
+}
+.article-content .image-wrapper img[alt="Cây Sachi"] {
+    max-width: 60%;  /* giảm kích thước */
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+
+
+
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header"></div>
+
+  <!-- Banner -->
+  <section class="hero-banner"></section>
+
+  <!-- Tiêu đề -->
+  <div class="page-title">
+    <h1>Đối tác đồng hành – HTX Kim Thông</h1>
+    <p class="text-muted">Kiến tạo giá trị bền vững từ “vua của các loại hạt”</p>
+  </div>
+
+  <!-- Giới thiệu -->
+  <section class="intro text-center my-5 py-4">
+    <div class="container">
+      <h1>HTX Kim Thông & NutriInChi</h1>
+      <p>Từ vùng đất đỏ bazan Đắk Lắk, HTX Kim Thông cùng NutriInChi mang đến nguồn nguyên liệu Sacha Inchi thuần khiết, chuẩn VietGAP, góp phần phát triển nông nghiệp sạch và lan tỏa giá trị nông sản Việt ra thế giới.</p>
+    </div>
+  </section>
+
+  
+  <!-- Nội dung chính -->
+<main class="container my-5">
+  <div class="article-content">
+
+    <h3>Giữa đất đỏ bazan Đắk Lắk – câu chuyện HTX Kim Thông</h3>
+    <p>Giữa vùng đất đỏ bazan trù phú của Đắk Lắk – nơi nắng gió hòa cùng vị mặn của đất và mùi hương của những mùa vụ, có một hợp tác xã nhỏ đã âm thầm viết nên câu chuyện lớn về nông sản Việt. Đó chính là Hợp tác xã Kim Thông, đối tác chiến lược và cũng là người đồng hành bền vững cùng NutriInChi trong hành trình đưa hạt Sacha Inchi – “vua của các loại hạt” – từ núi rừng Tây Nguyên vươn ra thị trường thế giới.</p>
+<div class="image-wrapper">
+  <img src="img/anh3.jpg" alt="Cây Sachi" class="img-fluid ">
+  <p >Cây Sachi</p>
+</div>
+    <h3>Từ rừng Amazon đến đất đỏ Đắk Lắk – Hành trình thích nghi và phát triển</h3>
+    <p>Sacha Inchi vốn là loại hạt có nguồn gốc từ rừng Amazon, nổi tiếng với hàm lượng dinh dưỡng vượt trội, đặc biệt là Omega-3, 6, 9, protein và vitamin E tự nhiên. Tuy nhiên, để loại cây này bén rễ và phát triển tại Việt Nam là cả một hành trình dài đầy thử thách.
+ Với tầm nhìn dài hạn và tinh thần kiên trì, HTX Kim Thông đã mạnh dạn đưa cây Sacha Inchi về trồng thử nghiệm trên đất Đắk Lắk – vùng đất đỏ bazan màu mỡ, khí hậu nắng ấm quanh năm, được xem là “vàng nâu” của Tây Nguyên.</p>
+    <p>Sau nhiều năm nghiên cứu và cải tiến quy trình canh tác, cây Sacha Inchi không chỉ thích nghi tốt mà còn cho năng suất và chất lượng hạt vượt trội, đáp ứng các tiêu chuẩn trong nước và quốc tế. Đây chính là nền tảng để Kim Thông trở thành đơn vị tiên phong tại Việt Nam trong trồng trọt, thu hoạch và chế biến sâu hạt Sacha Inchi, mở ra một hướng đi mới cho nông nghiệp xanh và bền vững.</p>
+
+    <h3>Chuẩn hóa từ gốc – Tạo niềm tin bằng chất lượng</h3>
+   <div class="image-grid my-4">
+  <div class="image-wrapper">
+    <img src="img/doitac1.1.png" alt="Cây Sachi 1" class="img-fluid">
+    <p>Quy trình chọn lọc hạt Sacha InChi</p>
+  </div>
+  <div class="image-wrapper">
+    <img src="img/doitac1.2.png" alt="Cây Sachi 2" class="img-fluid">
+    <p>Dây chuyền sản xuất hiện đại</p>
+  </div>
+</div>
+
+
+    <p>Không chỉ dừng lại ở việc trồng trọt, HTX Kim Thông đã đầu tư mạnh mẽ vào hệ thống sản xuất khép kín, ứng dụng công nghệ hiện đại để đảm bảo chất lượng đồng nhất từ nguyên liệu đầu vào đến thành phẩm. Từng hạt Sacha Inchi được chọn lọc kỹ lưỡng, sơ chế, rang, ép dầu hoặc chế biến thành sản phẩm hoàn thiện như hạt rang dinh dưỡng, dầu ép lạnh, bột Sacha Inchi.</p>
+    <p>Nhờ sự nghiêm ngặt trong quy trình và tinh thần làm việc tận tâm, sản phẩm của HTX Kim Thông đã đạt được chuẩn OCOP 4 sao quốc gia, được các chuyên gia đánh giá cao về hàm lượng dinh dưỡng, độ tinh khiết và an toàn sức khỏe. Đây không chỉ là niềm tự hào của riêng Kim Thông mà còn là dấu mốc quan trọng trong hành trình nâng tầm nông sản Việt Nam.
+</p>
+
+    <h3>HTX Kim Thông – Người bạn đồng hành tin cậy của NutriInChi</h3>
+    <div class="image-wrapper">
+  <img src="img/4_3.jpg" alt="Cây Sachi" class="img-fluid rounded">
+  <p >HTX Kim Thông cùng NutriInchi tại Trung tâm Triển lãm Quốc gia Đông Anh - VEC
+</p>
+</div>
+    <p>Với triết lý “Chân thành từ hạt – Bền vững từ tâm”, NutriInChi tìm thấy ở HTX Kim Thông không chỉ là một nhà cung cấp nguyên liệu, mà là người bạn đồng hành cùng chung giá trị.</p>
+    <p>Cả hai thương hiệu cùng chia sẻ tầm nhìn: đưa nguồn dinh dưỡng tự nhiên, thuần khiết từ đất Việt đến với người tiêu dùng, đồng thời góp phần phát triển đời sống nông dân và gìn giữ hệ sinh thái bền vững.
+</p>
+<p>Nguồn nguyên liệu Sacha Inchi mà NutriInChi sử dụng được trồng, thu hoạch và chế biến hoàn toàn tại các vùng nguyên liệu của HTX Kim Thông ở Đắk Lắk, dưới sự giám sát chặt chẽ và tuân thủ tiêu chuẩn VietGAP. Nhờ vậy, mỗi sản phẩm NutriInChi có thể đảm bảo chất lượng tinh khiết – hương vị nguyên bản – và giá trị sức khỏe trọn vẹn trong từng sản phẩm khi đến tay người tiêu dùng.</p>
+<p>Sự hợp tác này không chỉ mang ý nghĩa về mặt kinh tế, mà còn là cam kết cùng nhau phát triển nông nghiệp sạch, tạo giá trị thực và lan tỏa tinh thần “người Việt dùng nông sản Việt”.</p>   
+<h3>Cùng nhau vun đắp giá trị Việt</h3>
+    <p>Giữa thời đại mà người tiêu dùng ngày càng quan tâm đến sức khỏe và nguồn gốc sản phẩm, sự hợp tác giữa NutriInChi và HTX Kim Thông trở thành một minh chứng rõ ràng cho định hướng “làm nông nghiệp bằng trái tim”.</p>
+    <div class="image-wrapper">
+  <img src="img/HTXkimthong2.jpg" alt="Cây Sachi" class="img-fluid rounded">
+  <p >Giám đốc HTX Đỗ Thị Kim Thông giới thiệu sản phẩm của HTX cho ông Huỳnh Thành Đạt, Bộ trưởng Bộ Khoa học và Công nghệ Việt Nam. </p>
+</div>
+<p> Đó là hành trình không chỉ tạo ra sản phẩm tốt cho sức khỏe, mà còn giúp người nông dân có cuộc sống ổn định, giúp đất đai được canh tác bền vững hơn, và giúp người Việt tự hào về chính nông sản của mình.</p>
+    <p class="fst-italic text-success text-center fs-5 mt-4">“Từ một hạt nhỏ, chúng tôi cùng nhau gieo mầm cho tương lai – sức khỏe, con người, và một Việt Nam xanh – sạch – bền vững.”</p>
+    <p class="text-center mt-3">NutriInChi tự hào đồng hành cùng HTX Kim Thông – lan tỏa giá trị hạt Việt, nuôi dưỡng sức khỏe hôm nay và gieo nền tảng xanh cho mai sau.</p>
+
+    <div class="text-center">
+      <a href="index.html" class="btn btn-outline-success rounded-pill px-4 py-2 mt-3">
+        ← Quay lại trang chính
+      </a>
+    </div>
+
+  </div>
+</main>
+
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    async function loadComponent(id, file, callback) {
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error('Fetch failed ' + file + ' : ' + res.status);
+        const html = await res.text();
+        const container = document.getElementById(id);
+        if (!container) return;
+        container.innerHTML = html;
+        if (typeof callback === 'function') callback();
+      } catch (err) {
+        console.error('loadComponent error:', err);
+      }
+    }
+    loadComponent("header", "header.html", () => {
+      updateCartUI();
+      const script = document.createElement("script");
+      script.src = "header.js";
+      document.body.appendChild(script);
+    });
+    loadComponent("footer", "footer.html");
+  </script>
+</body>
+</html>

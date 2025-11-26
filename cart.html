@@ -3,123 +3,164 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Giỏ hàng</title>
+  <title>Giỏ hàng - NutriInChi</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+
   <style>
-    body { margin:0; font-family:Arial,sans-serif; background:#f9f9f9; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9fafb;
+    }
+
     main {
       max-width: 1000px;
-      margin: 30px auto;
-      padding: 20px;
+      margin: 40px auto;
       background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    h2 { margin-bottom: 20px; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td {
-      padding: 10px; border-bottom: 1px solid #ddd; text-align: center;
-    }
-    th { background: #f0f0f0; }
-    .total { text-align: right; font-weight: bold; padding: 15px; }
-    .btn {
-      background:#dc2626; color:#fff; border:none; padding:6px 12px;
-      border-radius:6px; cursor:pointer; font-size:14px;
-    }
-    .btn:hover { background:#b91c1c; }
-    .btn-pay {
-  background:#16a34a;
-  color:#fff;
-  border:none;
-  padding:10px 18px;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:16px;
-}
-.btn-pay:hover { background:#15803d; }
 
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .table thead {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    .btn-danger {
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .btn-pay {
+      background: #16a34a;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .btn-pay:hover {
+      background: #15803d;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin-top: 15px;
+    }
+
+    /* Toast thông báo */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #16a34a;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      z-index: 9999;
+      font-size: 15px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
+
 <body>
   <!-- Header -->
   <div id="header"></div>
 
-  <!-- Nội dung -->
   <main>
-    <h2>Giỏ hàng của bạn</h2>
+    <h2>🛒 Giỏ hàng của bạn</h2>
     <div id="cartContainer"></div>
-    
-  <a href="checkout.html">
-    <button class="btn-pay">Thanh toán</button>
-  </a>
 
+    <div class="text-end mt-4">
+      <a href="checkout.html">
+        <button class="btn-pay">💳 Thanh toán</button>
+      </a>
+    </div>
   </main>
- 
 
   <!-- Footer -->
   <div id="footer"></div>
 
-  <!-- Script chung -->
+  <!-- Toast -->
+  <div id="toast" class="toast">Sản phẩm đã được xóa khỏi giỏ hàng</div>
+
+  <!-- Script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 
   <script>
-    // Load header và footer
+    // === Load header/footer ===
     async function loadComponent(id, file, callback) {
       const res = await fetch(file);
       const html = await res.text();
       document.getElementById(id).innerHTML = html;
       if (callback) callback();
     }
+
     loadComponent("header", "header.html", () => {
-  updateCartUI(); // cập nhật số giỏ hàng
-
-  // Load header.js sau khi header đã load xong
-  const script = document.createElement("script");
-  script.src = "header.js";
-  document.body.appendChild(script);
-
-  // === Gắn lại sự kiện tìm kiếm ===
-  const searchInput = document.getElementById("searchInput");
-  if (searchInput) {
-    searchInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const keyword = searchInput.value.trim();
-        if (keyword) {
-          window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
-        }
-      }
+      updateCartUI();
+      const script = document.createElement("script");
+      script.src = "header.js";
+      document.body.appendChild(script);
     });
-  }
-});
 
     loadComponent("footer", "footer.html");
 
-    // Hiển thị giỏ hàng
+    // === Hiển thị giỏ hàng ===
     function renderCartPage() {
       const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       const container = document.getElementById("cartContainer");
 
       if (cart.length === 0) {
-        container.innerHTML = "<p>Giỏ hàng của bạn đang trống.</p>";
+        container.innerHTML = `
+          <div class="alert alert-warning text-center" role="alert">
+            🛍️ Giỏ hàng của bạn đang trống. Hãy chọn thêm sản phẩm nhé!
+          </div>`;
         return;
       }
 
+      let total = 0;
       let html = `
-        <table>
-          <thead>
-            <tr>
-              <th>Sản phẩm</th>
-              <th>Trọng lượng</th>
-              <th>Đơn giá</th>
-              <th>Số lượng</th>
-              <th>Thành tiền</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+            <thead>
+              <tr>
+                <th scope="col">Sản phẩm</th>
+                <th scope="col">Trọng lượng</th>
+                <th scope="col">Đơn giá</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Thành tiền</th>
+                <th scope="col">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
       `;
 
-      let total = 0;
       cart.forEach((item, i) => {
         const priceNum = parseInt(item.price.replace(/[^\d]/g, ""));
         const itemTotal = priceNum * item.qty;
@@ -132,30 +173,52 @@
             <td>${item.price}</td>
             <td>${item.qty}</td>
             <td>${itemTotal.toLocaleString()}₫</td>
-            <td><button class="btn" onclick="removeItem(${i})">Xóa</button></td>
+            <td>
+              <button class="btn btn-danger btn-sm" onclick="removeItem(${i})">Xóa</button>
+            </td>
           </tr>
         `;
       });
 
       html += `
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
         <div class="total">Tổng cộng: ${total.toLocaleString()}₫</div>
       `;
 
       container.innerHTML = html;
     }
 
+    // === Xóa sản phẩm ===
     function removeItem(index) {
       let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       cart.splice(index, 1);
       sessionStorage.setItem("cart", JSON.stringify(cart));
       renderCartPage();
       updateCartUI();
+      showToast("🗑️ Đã xóa sản phẩm khỏi giỏ hàng");
+    }
+
+    // === Toast thông báo ===
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2500);
     }
 
     // Render khi load trang
     renderCartPage();
   </script>
+  <!-- 🌸 Tự động chèn nút Messenger + Zalo -->
+<!-- <script>
+  fetch("contact-buttons.html")
+    .then(res => res.text())
+    .then(data => {
+      document.body.insertAdjacentHTML("beforeend", data);
+    });
+</script> -->
+
 </body>
 </html>

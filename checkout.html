@@ -2,133 +2,167 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Thanh toán</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <!-- ✅ Thêm Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
-    body { margin:0; font-family:Arial,sans-serif; background:#f9f9f9; }
+    body {
+      background: #f8f9fa;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
     main {
       max-width: 900px;
-      margin: 30px auto;
-      padding: 20px;
+      margin: 40px auto;
+      padding: 30px;
       background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 700;
+      color: #198754;
+      margin-bottom: 25px;
+    }
+
+    .payment-methods {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 15px;
+      margin-top: 10px;
     }
-    h2 { margin-bottom: 20px; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: center; }
-    th { background: #f0f0f0; }
-    form label { display:block; margin-top:10px; font-weight:bold; }
-    form input, form textarea {
-      width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px;
-    }
-    .btn-submit {
-      background:#16a34a; color:#fff; border:none; padding:10px 18px;
-      border-radius:6px; cursor:pointer; font-size:16px; margin-top:15px;
-    }
-    .btn-submit:hover { background:#15803d; }
 
-   .payment-methods {
-  margin-top: 8px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fafafa;
-}
-.payment-methods label {
-  font-weight: normal;
-  display: block;
-  margin: 5px 0;
-}
+    .qr-section {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px dashed #198754;
+      border-radius: 8px;
+      background: #fefefe;
+    }
 
+    .qr-section img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin-top: 10px;
+    }
   </style>
 </head>
+
 <body>
   <div id="header"></div>
 
   <main>
-    <h2>Thanh toán</h2>
-    <div id="checkoutCart"></div>
+    <h2>Thanh toán đơn hàng</h2>
 
-    <h3>Thông tin khách hàng</h3>
+    <!-- Hiển thị giỏ hàng -->
+    <div id="checkoutCart" class="mb-4"></div>
+
+    <h4 class="text-success mb-3">Thông tin khách hàng</h4>
     <form id="checkoutForm">
-      <label>Họ và tên</label>
-      <input type="text" required>
+      <div class="mb-3">
+        <label class="form-label">Họ và tên</label>
+        <input type="text" class="form-control" required>
+      </div>
 
-      <label>Số điện thoại</label>
-      <input type="tel" required>
+      <div class="mb-3">
+        <label class="form-label">Số điện thoại</label>
+        <input type="tel" class="form-control" required>
+      </div>
 
-      <label>Địa chỉ giao hàng</label>
-      <textarea required></textarea>
-      <label>Phương thức thanh toán</label>
-  <div class="payment-methods">
-    <label>Thanh toán khi nhận hàng (COD)<input type="radio" name="payment" value="cod" required> </label><br>
-    <label>Chuyển khoản ngân hàng<input type="radio" name="payment" value="bank"> </label><br>
-    <label>Ví MoMo<input type="radio" name="payment" value="momo"></label><br>
-    <label>ZaloPay<input type="radio" name="payment" value="zalopay"></label>
-  </div>
+      <div class="mb-3">
+        <label class="form-label">Địa chỉ giao hàng</label>
+        <textarea class="form-control" rows="3" required></textarea>
+      </div>
 
-      <button type="submit" class="btn-submit">Đặt hàng</button>
+      <label class="form-label fw-bold">Phương thức thanh toán</label>
+      <div class="payment-methods">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment" value="cod" required>
+          <label class="form-check-label">Thanh toán khi nhận hàng (COD)</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment" value="bank">
+          <label class="form-check-label">Chuyển khoản ngân hàng</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment" value="momo">
+          <label class="form-check-label">Ví MoMo</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment" value="vnpay">
+          <label class="form-check-label">VNPay</label>
+        </div>
+      </div>
+
+      <!-- QR hiển thị -->
+      <div id="qrDisplay" class="qr-section">
+        <p class="fw-semibold text-success">Quét mã QR để thanh toán:</p>
+        <img id="qrImage" src="" alt="QR thanh toán">
+      </div>
+
+      <button type="submit" class="btn btn-success w-100 mt-4 py-2 fw-bold">Đặt hàng</button>
     </form>
   </main>
 
   <div id="footer"></div>
 
+  <!-- Bootstrap JS (bundle kèm Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <script src="script.js"></script>
   <script>
+    // ======= Load Header & Footer =======
     async function loadComponent(id, file, callback) {
       const res = await fetch(file);
       const html = await res.text();
       document.getElementById(id).innerHTML = html;
       if (callback) callback();
     }
+
     loadComponent("header", "header.html", () => {
-  updateCartUI(); // cập nhật số giỏ hàng
-
-  // Load header.js sau khi header đã load xong
-  const script = document.createElement("script");
-  script.src = "header.js";
-  document.body.appendChild(script);
-
-  // === Gắn lại sự kiện tìm kiếm ===
-  const searchInput = document.getElementById("searchInput");
-  if (searchInput) {
-    searchInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const keyword = searchInput.value.trim();
-        if (keyword) {
-          window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
-        }
-      }
+      updateCartUI();
+      const script = document.createElement("script");
+      script.src = "header.js";
+      document.body.appendChild(script);
     });
-  }
-});
 
     loadComponent("footer", "footer.html");
 
-    // Hiển thị giỏ hàng khi thanh toán
+    // ======= Hiển thị giỏ hàng =======
     function renderCheckoutCart() {
       const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       const container = document.getElementById("checkoutCart");
 
       if (cart.length === 0) {
-        container.innerHTML = "<p>Không có sản phẩm trong giỏ hàng.</p>";
+        container.innerHTML = "<p class='text-center text-muted'>Không có sản phẩm trong giỏ hàng.</p>";
         return;
       }
 
       let html = `
-        <table>
-          <thead>
-            <tr>
-              <th>Sản phẩm</th>
-              <th>Trọng lượng</th>
-              <th>Số lượng</th>
-              <th>Đơn giá</th>
-              <th>Thành tiền</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+            <thead class="table-success text-center">
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Trọng lượng</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+              </tr>
+            </thead>
+            <tbody>
       `;
 
       let total = 0;
@@ -138,7 +172,7 @@
         total += itemTotal;
 
         html += `
-          <tr>
+          <tr class="text-center">
             <td>${item.name}</td>
             <td>${item.weight}</td>
             <td>${item.qty}</td>
@@ -149,9 +183,10 @@
       });
 
       html += `
-          </tbody>
-        </table>
-        <p><strong>Tổng cộng: ${total.toLocaleString()}₫</strong></p>
+            </tbody>
+          </table>
+        </div>
+        <h5 class="text-end fw-bold text-success">Tổng cộng: ${total.toLocaleString()}₫</h5>
       `;
 
       container.innerHTML = html;
@@ -159,20 +194,49 @@
 
     renderCheckoutCart();
 
-    // Giả lập submit form
+    // ======= Hiển thị mã QR =======
+    const paymentInputs = document.querySelectorAll('input[name="payment"]');
+    const qrSection = document.getElementById("qrDisplay");
+    const qrImage = document.getElementById("qrImage");
+
+    paymentInputs.forEach(input => {
+      input.addEventListener("change", () => {
+        if (input.value === "momo") {
+          qrSection.style.display = "block";
+          qrImage.src = "images/qr-momo.png"; // đặt hình QR momo vào /images
+        } else if (input.value === "vnpay") {
+          qrSection.style.display = "block";
+          qrImage.src = "images/qr-vnpay.png"; // đặt hình QR vnpay vào /images
+        } else if (input.value === "bank") {
+          qrSection.style.display = "block";
+          qrImage.src = "images/qr-vnpay.png"; // đặt hình QR vnpay vào /images
+        } else {
+          qrSection.style.display = "none";
+          qrImage.src = "";
+        }
+      });
+    });
+
+    // ======= Xử lý đặt hàng =======
     document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+      e.preventDefault();
 
-  const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+      const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
 
-  alert("Đặt hàng thành công!\nPhương thức thanh toán: " + paymentMethod.toUpperCase());
-  
-  sessionStorage.removeItem("cart"); // reset giỏ hàng
-  window.location.href = "index.html"; // quay về trang chủ
-});
-
-
-
+      alert("Đặt hàng thành công!\nPhương thức thanh toán: " + paymentMethod.toUpperCase());
+      
+      sessionStorage.removeItem("cart");
+      window.location.href = "index.html";
+    });
   </script>
+  <!-- 🌸 Tự động chèn nút Messenger + Zalo -->
+<!-- <script>
+  fetch("contact-buttons.html")
+    .then(res => res.text())
+    .then(data => {
+      document.body.insertAdjacentHTML("beforeend", data);
+    });
+</script> -->
+
 </body>
 </html>

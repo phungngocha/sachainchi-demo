@@ -1,188 +1,246 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Footer Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Footer NutriInchi</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+
   <style>
-    /* === FOOTER CSS === */
-    /* === RESET & BODY === */
-body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  min-height: 100vh;
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #fff;
+    }
+
+    footer {
+      background-color: #f0f0f0;
+      color: #222;
+      padding: 70px 20px 20px;
+    }
+
+    .footer-row > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Logo */
+    .footer-logo {
+      text-align: center;
+      align-items: center;
+      height: 100%; 
+    }
+
+    .footer-logo img {
+      width: 120px;
+      margin-bottom: 10px;
+      mix-blend-mode: multiply;
+    }
+
+    .footer-logo p {
+      margin: 2px 0;
+      color: #005500;
+    }
+
+    .footer-logo p strong {
+      font-size: 20px;
+    }
+
+    /* Links */
+   
+.footer-links {
   display: flex;
   flex-direction: column;
-  background: #fafafa;
+  justify-content: flex-start; /* chữ sẽ xếp từ trên xuống */
+  height: 100%; /* đảm bảo chiếm trọn chiều cao container cha */
 }
+    .footer-links h5 {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
 
-/* === FOOTER === */
-.site-footer {
-  background-color: #2e7d32; /* xanh lá đậm */
-  color: #fff;
-  padding: 40px 20px 20px;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-}
+    .footer-links a {
+      display: block;
+      color: #444;
+      text-decoration: none;
+      margin: 4px 0;
+      transition: .2s;
+    }
 
-.site-footer .footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap; /* để responsive */
-  justify-content: space-between;
-  gap: 20px;
-}
+    .footer-links a:hover {
+      color: #28a745;
+    }
 
-.footer-col {
-  flex: 1 1 250px; /* mỗi cột tối thiểu 250px */
-}
+    /* Info */
+    .footer-info p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
 
-.footer-col h4 {
-  font-size: 18px;
-  margin-bottom: 12px;
-  color: #c8e6c9; /* xanh lá nhạt */
-  border-bottom: 2px solid #a5d6a7;
-  display: inline-block;
-  padding-bottom: 4px;
-}
+    /* Subscribe */
+    .subscribe-box {
+      display: flex;
+      margin-top: 10px;
+    }
 
-.footer-col p {
-  margin: 6px 0;
-  font-size: 14px;
-  color: #e8f5e9;
-}
+    .subscribe-box input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
 
-.footer-col a {
-  color: #c8e6c9;
-  text-decoration: none;
-  transition: color 0.3s ease, transform 0.2s ease;
-  font-size: 14px;
-}
+    .subscribe-box button {
+      padding: 8px 15px;
+      border: none;
+      background-color: #28a745;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 0 4px 4px 0;
+      transition: .3s;
+    }
 
-.footer-col a:hover {
-  color: #fff;
-  transform: translateX(3px);
-}
+    .subscribe-box button:hover {
+      background-color: #1e7e34;
+    }
 
-/* === SOCIAL === */
-.social-links {
-  margin-top: 10px;
-}
+    /* Social icons */
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+      z-index: 10;
+      position: relative;
+    }
 
-.social-links a {
-  display: inline-block;
-  margin-right: 10px;
-}
+    .social-icons a {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #e6f2e6;
+      color: #28a745;
+      border-radius: 50%;
+      font-size: 24px;
+      transition: .3s;
+      text-decoration: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+      cursor: pointer;
+    }
 
-.social-links img {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
-}
+    .social-icons a:hover {
+      background-color: #28a745;
+      color: #fff;
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
 
-.social-links img:hover {
-  transform: scale(1.1);
-}
+    /* Certification */
+    .certification img {
+      width: 180px;
+      margin-top: -20px;
+      border-radius: 4px;
+      transition: .3s;
+    }
 
-/* === Certification === */
-.certification {
-  margin-top: 15px;
-}
+    .certification img:hover {
+      transform: scale(1.05);
+    }
 
-.certification img {
-  width: 140px;
-  height: auto;
-  background: #fff;
-  border-radius: 6px;
-  padding: 5px;
-}
+    /* Footer bottom */
+    .footer-bottom {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #444;
+      border-top: 1px solid #ccc;
+      padding-top: 15px;
+    }
 
-/* === Footer Bottom === */
-.footer-bottom {
-  text-align: center;
-  border-top: 1px solid #388e3c;
-  margin-top: 25px;
-  padding-top: 15px;
-  font-size: 14px;
-  color: #c8e6c9;
-}
+    /* Mobile */
+    @media (max-width: 768px) {
+      .row.footer-row {
+        flex-direction: column;
+        text-align: center;
+      }
 
-/* === Responsive cho mobile === */
-@media (max-width: 768px) {
-  .site-footer .footer-container {
-    flex-direction: column;
-    text-align: center;
-  }
-  .footer-col {
-    margin-bottom: 20px;
-  }
-  .social-links img {
-    width: 32px;
-    height: 32px;
-  }
-}
+      .footer-links, .footer-info {
+        margin-top: 20px;
+      }
 
+      .subscribe-box {
+        flex-direction: column;
+      }
 
+      .social-icons {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
+
 <body>
+  <footer>
+    <div class="container">
+      <div class="row footer-row gy-4">
 
-  <!-- Nội dung giả để test -->
-  <!-- <main style="flex: 1; padding: 20px; text-align:center">
-    <h2>Trang sản phẩm</h2>
-    <p>Đây là nội dung ở giữa trang...</p>
-  </main> -->
-
-  <!-- === FOOTER HTML === -->
-  <footer class="site-footer">
-    <div class="footer-container">
-
-      <!-- Cột 1: thông tin công ty -->
-      <div class="footer-col">
-        <h4>Shop Hạt Sacha Inchi</h4>
-        <p>Địa chỉ: Trường đại học FPT</p>
-        <p>Điện thoại: 0909 123 456</p>
-        <p>Email: info@sachainchi.vn</p>
-      </div>
-
-      <!-- Cột 2: liên kết -->
-      <div class="footer-col">
-        <h4>Thông tin</h4>
-        <p><a href="#">Chính sách</a></p>
-        <p><a href="#">Liên hệ</a></p>
-        <p><a href="#">FAQ</a></p>
-      </div>
-
-      <!-- Cột 3: mạng xã hội -->
-      <div class="footer-col">
-        <h4>Kết nối</h4>
-        <div class="social-links">
-          <a href="https://facebook.com" target="_blank"><img src="img/Facebook_Logo_(2019).png.webp" alt="Facebook"></a>
-          <a href="https://tiktok.com" target="_blank"><img src="img/tiktok.jpg" alt="TikTok"></a>
-          <a href="https://instagram" target="_blank"><img src="img/intagam.png" alt="Instagram"></a>
+        <!-- Logo -->
+        <div class="col-md-4 footer-logo">
+          <img src="img/logokochu.png" />
+          <p><strong>NutriInchi</strong></p>
+          <p>HẠT LÀNH – SỐNG XANH</p>
         </div>
-        <div class="certification">
-          <img src="img/bo-cong-thuong.png" alt="Đã thông báo Bộ Công Thương">
+
+        <!-- Links -->
+        <div class="col-md-4 footer-links">
+          <h5>Đặt hàng & Hỗ trợ</h5>
+          <a href="#">Chính sách bán hàng</a>
+          <a href="lienhe.html">Liên hệ chúng tôi</a>
+
+          <h5 class="mt-3">Về NutriInchi</h5>
+          <a href="cau-chuyen.html">Câu chuyện thương hiệu</a>
+          <a href="doitac.html">Đối tác quan trọng</a>
+          <a href="sachiinchi.html">Hạt Sacha Inchi</a>
+        </div>
+
+        <!-- Info -->
+        <div class="col-md-4 footer-info">
+          <h5>SẢN XUẤT VỀ HÀNG HÓA</h5>
+          <p>HTX THƯƠNG MẠI DỊCH VỤ DU LỊCH VÀ XUẤT KHẨU KIM THÔNG</p>
+          <p>GCNĐKKD: 0128-0700-0077</p>
+          <p>Ngày cấp: 09/04/2019</p>
+          <p>ĐT: 0376 081 644 | Email: Nutriinchi@gmail.com</p>
+
+          <!-- Subscribe -->
+          <form class="subscribe-box">
+            <input type="email" placeholder="Email của bạn" />
+            <button type="button">Đăng ký</button>
+          </form>
+
+          <!-- Social icons -->
+          <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61562097634724" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@nutriinchi" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+
+          <!-- Certification -->
+          <div class="certification">
+            <img src="img/bo-cong-thuong.png" />
+          </div>
+
         </div>
       </div>
-    </div>
 
-    <div class="footer-bottom">
-      <p>&copy; 2025 Shop Hạt Sacha Inchi. All rights reserved.</p>
+      <div class="footer-bottom">
+        © 2025 NutriInchi. All rights reserved.
+      </div>
     </div>
   </footer>
-
-  <!-- === FOOTER JS === -->
-  <script>
-    const links = document.querySelectorAll(".footer-col a");
-    links.forEach(link => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        alert("Bạn vừa nhấn vào: " + link.textContent);
-      });
-    });
-  </script>
-
 </body>
 </html>

@@ -3,177 +3,574 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chi tiết sản phẩm</title>
+  <title>Chi tiết sản phẩm - NutriInChi</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { margin:0; font-family:Arial,sans-serif; background:#f9f9f9; }
-    main {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .product-detail {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-    .product-detail img {
-      width: 350px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    .product-info {
-      flex: 1;
-    }
-    .product-info h2 { margin: 0 0 10px; }
-    .price { font-size:18px; font-weight:bold; color:#16a34a; margin: 10px 0; }
-    .desc { margin: 10px 0; }
-    .btn {
-      background:#16a34a; color:#fff; border:none; padding:10px 16px;
-      border-radius:6px; cursor:pointer; font-size:15px;
-    }
-    .btn:hover { background:#15803d; }
+   /* --- Toàn trang --- */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+}
+
+main {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* --- Chi tiết sản phẩm --- */
+.product-detail {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.product-detail img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.product-info h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+/* --- Nút chọn loại sản phẩm --- */
+.option-btn {
+  padding: 6px 12px;       /* nhỏ gọn hơn, cân đối với tiêu đề */
+  border: 1px solid #009933;
+  border-radius: 6px;
+  background: #fff;
+  color: #009933;
+  font-size: 14px;         /* vừa với tiêu đề */
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  height: 32px;            /* tạo chiều cao đồng đều */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-btn:hover {
+  background: #16a34a;
+  color: #fff;
+}
+
+.option-btn.active {
+  background: #16a34a;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Giảm margin thừa */
+.option-group, .qty-box, .price-box {
+  margin: 0 !important;
+}
+
+#weightOptions {
+  display: flex;
+  gap: 8px;                /* khoảng cách nhỏ giữa các nút */
+}
+
+
+/* --- Giá sản phẩm --- */
+.price-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.price-main {
+  font-size: 28px;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.old-price {
+  font-size: 18px;
+  color: #888;
+  text-decoration: line-through;
+}
+
+/* Áp dụng box-sizing cho tất cả các phần tử để tính chiều cao dễ hơn */
+* {
+  box-sizing: border-box;
+}
+
+/* Số lượng */
+.qty-box {
+  display: flex;
+  align-items: stretch; /* cho tất cả cùng cao */
+  gap: 4px; /* khoảng cách nhỏ giữa nút và input */
+}
+
+.qty-btn {
+  width: 30px;         /* nhỏ lại */
+  height: 30px;        /* nhỏ lại */
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 16px;     /* vừa với chiều cao */
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.qty-btn:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.qty-btn:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.qty-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Ẩn nút tăng giảm mặc định */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-input {
+  width: 40px;          /* nhỏ lại */
+  text-align: center;
+  border: 1px solid #ccc;
+  border-left: 0;
+  border-right: 0;
+  font-size: 14px;      /* vừa với khối */
+  height: 30px;         /* bằng với nút */
+  line-height: 30px;    /* canh số chính giữa theo chiều dọc */
+  padding: 0;
+  box-sizing: border-box;
+  -moz-appearance: textfield; /* cho Firefox */
+}
+
+
+
+
+/* --- Nút hành động --- */
+.btn-green,
+.btn-buy {
+  font-size: 16px;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.btn-green {
+  background: #08A045;
+  color: #fff;
+  border: none;
+  margin-right: 10px;
+}
+
+.btn-green:hover {
+  background: #067A34;
+}
+
+.btn-buy {
+  background: #0F7B28;
+  color: #fff;
+  border: none;
+}
+
+.btn-buy:hover {
+  background: #0C5E1F;
+}
+
+/* --- Tab & sản phẩm khác --- */
+.tab-content {
+  margin-top: 20px;
+}
+
+.other-products .card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s;
+}
+
+.other-products .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.other-products img {
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* ===== CĂN CHỈNH 2 CỘT CHUẨN TMĐT ===== */
+.row-line {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.row-line label {
+  width: 110px;              /* chiều rộng cố định giúp thẳng hàng */
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+}
+
+.row-line .content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.product-image-box {
+  display: flex;
+  flex-direction: column;
+   align-items: flex-start; /* đảm bảo tất cả bám về bên trái */
+  gap: 12px;
+}
+
+.main-image {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 8px;
+}
+
+.thumb-list {
+   display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+
+.thumb {
+  width: 70px;
+  height: 80px;
+  border-radius: 6px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.2s;
+}
+
+.thumb:hover {
+  border-color: #16a34a;
+}
+
+.thumb.active {
+  border-color: #16a34a;
+}
+
   </style>
 </head>
 <body>
   <!-- Header -->
   <div id="header"></div>
 
-  <!-- Nội dung -->
   <main>
     <div id="detailContainer"></div>
+
+   <ul class="nav nav-tabs mt-5" id="detailTabs">
+  <li class="nav-item">
+    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#descTab">Mô tả sản phẩm</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#policyTab">Chính sách đổi trả</button>
+  </li>
+</ul>
+
+<div class="tab-content border p-4 rounded-bottom">
+  <div class="tab-pane fade show active" id="descTab">
+
+    <!-- PHẦN NỘI DUNG TỰ ĐỘNG CHÈN -->
+    <div id="descContent"></div>
+
+  </div>
+
+  <div class="tab-pane fade" id="policyTab">
+  <h5><strong>Chính sách hoàn hàng / trả hàng</strong></h5>
+
+  <h6 class="mt-3"><strong>1. Điều kiện áp dụng</strong></h6>
+  <ul>
+    <li>Sản phẩm lỗi, hư hỏng trong quá trình vận chuyển hoặc không đúng mô tả.</li>
+    <li>Sản phẩm còn nguyên tem, bao bì, chưa qua sử dụng.</li>
+    <li>Thời gian yêu cầu đổi/trả: trong vòng <strong>3 ngày</strong> kể từ khi nhận hàng.</li>
+  </ul>
+
+  <h6 class="mt-3"><strong>2. Quy trình thực hiện</strong></h6>
+  <ul>
+    <li>Liên hệ bộ phận Chăm sóc khách hàng qua hotline hoặc email hỗ trợ.</li>
+    <li>Gửi hình ảnh/video xác nhận tình trạng sản phẩm.</li>
+    <li>Sau khi được xác nhận, khách hàng có thể:</li>
+    <ul>
+      <li>Đổi sản phẩm mới cùng loại (miễn phí vận chuyển), hoặc</li>
+      <li>Hoàn tiền 100% nếu sản phẩm thay thế không còn sẵn hàng.</li>
+    </ul>
+  </ul>
+
+  <h6 class="mt-3"><strong>3. Lưu ý</strong></h6>
+  <ul>
+    <li>Không áp dụng đổi trả cho sản phẩm đã mở bao bì, sử dụng hoặc không còn tem niêm phong.</li>
+    <li>Chúng tôi chịu toàn bộ phí vận chuyển trong trường hợp lỗi thuộc về nhà sản xuất.</li>
+  </ul>
+</div>
+</div>
+
+
+    <!-- Các sản phẩm khác -->
+    <div class="other-products mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5>Các sản phẩm khác của shop</h5>
+        <a href="products.html" class="text-success fw-semibold text-decoration-none">Xem tất cả</a>
+      </div>
+      <div class="row" id="relatedProducts"></div>
+    </div>
   </main>
 
   <!-- Footer -->
   <div id="footer"></div>
 
-  <!-- Script chung -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 🔗 Import dữ liệu sản phẩm -->
+  <script src="products.js"></script>
   <script src="script.js"></script>
-
-  <!-- Load header/footer -->
+  <!-- 🔗 Script chính -->
+    <!-- 🔗 Script chính -->
   <script>
-    async function loadComponent(id, file, callback) {
-  try {
-    const res = await fetch(file);
-    if (!res.ok) throw new Error("Fetch failed " + file);
-    const html = await res.text();
-    const container = document.getElementById(id);
-    if (container) {
-      container.innerHTML = html;
-      if (typeof callback === "function") callback(); // chạy callback sau khi header/footer load xong
+    // === Load header & footer ===
+  async function loadComponent(id, file, callback) {
+    try {
+      const res = await fetch(file);
+      const html = await res.text();
+      document.getElementById(id).innerHTML = html;
+      if (callback) callback();
+    } catch (err) {
+      console.error(err);
     }
-  } catch (err) {
-    console.error("loadComponent error:", err);
   }
-}
 
-    loadComponent("header", "header.html", () => {
-  updateCartUI(); // cập nhật số giỏ hàng
+  loadComponent("header", "header.html", () => {
+    updateCartUI();
+    const script = document.createElement("script");
+    script.src = "header.js";
+    document.body.appendChild(script);
+  });
 
-  // Load header.js sau khi header đã load xong
-  const script = document.createElement("script");
-  script.src = "header.js";
-  document.body.appendChild(script);
+  loadComponent("footer", "footer.html");
 
-  // === Gắn lại sự kiện tìm kiếm ===
-  const searchInput = document.getElementById("searchInput");
-  if (searchInput) {
-    searchInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const keyword = searchInput.value.trim();
-        if (keyword) {
-          window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
-        }
-      }
-    });
-  }
-});
+  // === Lấy ID sản phẩm từ URL ===
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get("id"));
+  const product = products.find(p => p.id === id);
+  const container = document.getElementById("detailContainer");
 
-    loadComponent("footer", "footer.html");
-  </script>
+  if (product) {
+    container.innerHTML = `
+      <div class="product-detail">
+        <div class="product-image-box">
+  <img id="mainImage" src="${product.images[0]}" alt="${product.name}" class="main-image">
+<div class="thumb-list">
+    ${product.images.map((img, i) => `
+      <img src="${img}" class="thumb ${i === 0 ? 'active' : ''}" data-index="${i}">
+    `).join('')}
+  </div>
+  
+</div>
 
-  <!-- Script chi tiết sản phẩm -->
-  <script>
-    const products = [
-      {
-        name: "Hạt Dinh Dưỡng Sacha Inchi",
-        img: "img/product1.png",
-        desc: "Hũ hạt Sacha Inchi nguyên chất, giàu Omega-3, 6, 9 tốt cho sức khỏe.",
-        usage: "Dùng trực tiếp hoặc trộn salad, nấu cháo, làm bánh.",
-        weights: ["250Gr", "500Gr"],
-        prices: ["338.000₫", "422.500₫"]
-      },
-      {
-        name: "Dầu Sacha Inchi Nguyên Chất",
-        img: "img/product2.png",
-        desc: "Dầu ép lạnh nguyên chất từ hạt Sacha Inchi, bổ sung Omega-3 cho cơ thể.",
-        usage: "Uống trực tiếp, trộn salad, dùng cho da và tóc.",
-        weights: ["100ml", "250ml"],
-        prices: ["199.000₫", "399.000₫"]
-      },
-      {
-        name: "Snack Sacha Inchi Rang Mộc",
-        img: "img/product3.png",
-        desc: "Snack hạt Sacha Inchi rang mộc, giòn thơm tự nhiên, không dầu mỡ.",
-        usage: "Ăn vặt, dùng kèm trà, cà phê.",
-        weights: ["100Gr", "200Gr"],
-        prices: ["85.000₫", "150.000₫"]
-      },
-      {
-        name: "Bột Sacha Inchi",
-        img: "img/product4.png",
-        desc: "Bột dinh dưỡng từ hạt Sacha Inchi, giàu protein thực vật.",
-        usage: "Pha nước uống, trộn sinh tố, nấu cháo, làm bánh.",
-        weights: ["250Gr", "500Gr"],
-        prices: ["250.000₫", "450.000₫"]
-      }
-    ];
 
-    // Lấy id từ URL
-    const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get("id")) || 0;
 
-    const product = products[id];
-    const container = document.getElementById("detailContainer");
+        <div class="product-info">
+          <h2>${product.name}</h2>
 
-    if (product) {
-      let weightOptions = "";
-      product.weights.forEach((w, i) => {
-        weightOptions += `<option value="${i}">${w} - ${product.prices[i]}</option>`;
-      });
-
-      container.innerHTML = `
-        <div class="product-detail">
-          <img src="${product.img}" alt="${product.name}">
-          <div class="product-info">
-            <h2>${product.name}</h2>
-            <div class="price">${product.prices[0]}</div>
-            <p class="desc"><strong>Mô tả:</strong> ${product.desc}</p>
-            <p class="desc"><strong>Công dụng:</strong> ${product.usage}</p>
-            <div>
-              <label>Cân nặng:</label>
-              <select id="weightSelect">${weightOptions}</select>
+          <!-- Chọn loại -->
+          <div class="row-line">
+            <label>Chọn loại:</label>
+            <div class="content" id="weightOptions">
+              ${product.weights.map((w, i) => `
+                <button class="option-btn ${i===0?'active':''}" data-index="${i}">${w}</button>
+              `).join('')}
             </div>
-            <div style="margin:10px 0;">
-              <label>Số lượng:</label>
-              <input type="number" id="qtyDetail" value="1" min="1" style="width:70px;">
+          </div>
+
+          <!-- Giá -->
+          <div class="row-line">
+            <label>Giá:</label>
+            <div class="content price-box">
+              <span class="price-main" id="priceDetail">${product.prices[0]}</span>
+              <span class="old-price" id="oldPrice"></span>
             </div>
-            <button class="btn" onclick="addDetailToCart(${id})">Thêm vào giỏ hàng</button>
+          </div>
+
+          <!-- Số lượng -->
+          <div class="row-line">
+            <label>Số lượng:</label>
+            <div class="content qty-box">
+              <button class="qty-btn" onclick="changeQty(-1)">−</button>
+              <input type="number" id="qtyDetail" class="qty-input" value="1" min="1">
+              <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <button id="btnAdd" class="btn-green"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
+            <button id="btnBuyNow" class="btn-buy">Mua ngay</button>
           </div>
         </div>
-      `;
-    }
+      </div>
+    `;
+  }
+  // ========= Thumbnail click ===========
+document.querySelectorAll(".thumb").forEach((thumb, index) => {
+  thumb.addEventListener("click", () => {
 
-    function addDetailToCart(i) {
-      const qty = parseInt(document.getElementById("qtyDetail").value);
-      const select = document.getElementById("weightSelect");
-      const weight = products[i].weights[select.value];
-      const price = products[i].prices[select.value];
-      addToCart(products[i], qty, weight, price);
+    // đổi ảnh chính
+    document.getElementById("mainImage").src = product.images[index];
+
+    // active border
+    document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
+    thumb.classList.add("active");
+  });
+});
+
+
+  // === Tăng giảm số lượng ===
+  window.changeQty = function(type) {
+    let qty = document.getElementById("qtyDetail");
+    let val = parseInt(qty.value);
+    if (type === -1 && val > 1) qty.value = val - 1;
+    if (type === 1) qty.value = val + 1;
+  }
+
+  // === Chọn loại sản phẩm ===
+  document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("option-btn")) {
+      document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+
+      const i = parseInt(e.target.dataset.index);
+
+      // Cập nhật giá theo loại
+      document.getElementById("priceDetail").innerText = product.prices[i];
+
+      // Nếu có oldPrices thì hiển thị, không thì xoá trống
+      if (product.oldPrices && product.oldPrices[i]) {
+        document.getElementById("oldPrice").innerText = product.oldPrices[i];
+      } else {
+        document.getElementById("oldPrice").innerText = "";
+      }
     }
+  });
+
+
+// Thêm vào giỏ
+document.getElementById("btnAdd").addEventListener("click", () => {
+  const qty = parseInt(document.getElementById("qtyDetail").value);
+  const active = document.querySelector(".option-btn.active").dataset.index;
+
+  addToCart(product, qty, product.weights[active], product.prices[active]);
+  updateCartUI();
+});
+
+// Mua ngay
+document.getElementById("btnBuyNow").addEventListener("click", () => {
+  const qty = parseInt(document.getElementById("qtyDetail").value);
+  const active = document.querySelector(".option-btn.active").dataset.index;
+
+  addToCart(product, qty, product.weights[active], product.prices[active]);
+  updateCartUI();
+  window.location.href = "cart.html";
+});
+
+
+
+  // === Hiển thị sản phẩm liên quan ===
+  const relatedContainer = document.getElementById("relatedProducts");
+  products.filter(p => p.id !== id).forEach(p => {
+    relatedContainer.innerHTML += `
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <img src="${p.img}" class="card-img-top" alt="${p.name}">
+          <div class="card-body">
+            <h6>${p.name}</h6>
+            <p class="text-success fw-bold">${p.prices[0]}</p>
+            <a href="product-detail.html?id=${p.id}" class="btn btn-outline-success w-100 rounded-pill">Xem chi tiết</a>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+
+
+  // === Sinh nội dung mô tả từ data ===
+if (product) {
+
+  const descBox = document.getElementById("descContent");
+
+  let benefitsHtml = "";
+  if (Array.isArray(product.benefits)) {
+    benefitsHtml = `
+      <ul>
+        ${product.benefits.map(b => `<li>${b}</li>`).join("")}
+      </ul>
+    `;
+  } else {
+    benefitsHtml = `<p>${product.benefits}</p>`;
+  }
+
+  let usageHtml = "";
+  if (Array.isArray(product.usage)) {
+    usageHtml = `
+      <ul>
+        ${product.usage.map(u => `<li>${u}</li>`).join("")}
+      </ul>
+    `;
+  } else {
+    usageHtml = `<p>${product.usage}</p>`;
+  }
+
+  descBox.innerHTML = `
+    <h5><strong>Mô tả:</strong></h5>
+    <p>${product.description}</p>
+
+    <h5 class="mt-3"><strong>Thành phần:</strong></h5>
+    <p>${product.ingredients}</p>
+
+    <h5 class="mt-3"><strong>Công dụng:</strong></h5>
+    ${benefitsHtml}
+
+    <h5 class="mt-3"><strong>Hướng dẫn sử dụng:</strong></h5>
+    ${usageHtml}
+
+    <h5 class="mt-3"><strong>Cách đóng gói:</strong></h5>
+    <p>${product.packaging}</p>
+
+    <h5 class="mt-3"><strong>Bảo quản:</strong></h5>
+    <p>${product.storage}</p>
+  `;
+}
+
   </script>
+
+
 </body>
 </html>
