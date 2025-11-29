@@ -268,4 +268,50 @@ body {
     height: 200px;
   }
 }
+/* ===== MENU DESKTOP ===== */
+.nav-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+    transition: 0.3s ease;
+    z-index: 9999;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-menu a {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 17px;
+  }
+}
 

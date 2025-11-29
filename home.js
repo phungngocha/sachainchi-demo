@@ -55,42 +55,9 @@
   });
 
   // 🧩 Load header/footer
-  async function loadComponent(id, file, callback) {
-      try {
-        const res = await fetch(file);
-        if (!res.ok) throw new Error('Fetch failed ' + file + ' : ' + res.status);
-        const html = await res.text();
-        const container = document.getElementById(id);
-        if (!container) return;
-        container.innerHTML = html;
-        if (typeof callback === 'function') callback();
-      } catch (err) {
-        console.error('loadComponent error:', err);
-      }
-    }
-    loadComponent("header", "header.html", () => {
-  updateCartUI(); // cập nhật số giỏ hàng
+  
+   
 
-  // Load header.js sau khi header đã load xong
-  const script = document.createElement("script");
-  script.src = "header.js";
-  document.body.appendChild(script);
-
-  // === Gắn lại sự kiện tìm kiếm ===
-  const searchInput = document.getElementById("searchInput");
-  if (searchInput) {
-    searchInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const keyword = searchInput.value.trim();
-        if (keyword) {
-          window.location.href = `search.html?query=${encodeURIComponent(keyword)}`;
-        }
-      }
-    });
-  }
-});
-
-    loadComponent("footer", "footer.html");
 })();
 
 
@@ -115,16 +82,17 @@ if (aboutLink) {
 //   }
 // });
 
-let aboutIndex = 0;
-const aboutSlider = document.getElementById("aboutSlider");
-const totalAboutSlides = document.querySelectorAll(".about-slide").length;
+let currentSlide = 0;
+const slides = document.querySelectorAll('.about-slide');
+const slider = document.querySelector('.about-slider');
 
-document.getElementById("aboutNext").onclick = () => changeAbout(1);
-document.getElementById("aboutPrev").onclick = () => changeAbout(-1);
+document.querySelector('.about-arrow.right').addEventListener('click', () => {
+  currentSlide = (currentSlide + 1) % slides.length;
+  slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+});
 
-function changeAbout(step) {
-  aboutIndex += step;
-  if (aboutIndex < 0) aboutIndex = totalAboutSlides - 1;
-  if (aboutIndex >= totalAboutSlides) aboutIndex = 0;
-  aboutSlider.style.transform = `translateX(-${aboutIndex * 100}%)`;
-}
+document.querySelector('.about-arrow.left').addEventListener('click', () => {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+});
+
